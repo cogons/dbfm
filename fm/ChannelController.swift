@@ -18,6 +18,7 @@ class ChannelController: UITableViewController,HttpProtocol {
     var channelData = []
     var data = [:]
     var num:Int = 0
+    var channelid:Int = 0
     
     var channelDelegate : ChannelProtocol?
 
@@ -37,6 +38,7 @@ class ChannelController: UITableViewController,HttpProtocol {
         var vc = ViewController()
         self.channelDelegate = vc
         //self.channelDelegate?.send(indexPath.row)
+        channelid = indexPath.row
         performSegueWithIdentifier("toRoot", sender: self)
         
         
@@ -45,9 +47,8 @@ class ChannelController: UITableViewController,HttpProtocol {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "toRoot"{
             var dst : ViewController = segue.destinationViewController as! ViewController
-            let dic = "hhhh";
-            print("s")
-            NSNotificationCenter.defaultCenter().postNotificationName("NotificationIdentifier",object: dic)
+            print(channelid)
+            NSNotificationCenter.defaultCenter().postNotificationName("NotificationIdentifier",object: channelid)
         }
     }
 

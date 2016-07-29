@@ -34,29 +34,22 @@ class ViewController: UIViewController,ChannelProtocol,HttpProtocol {
         super.viewDidLoad()
         var player:AVPlayer
         eHttp.delegate = self
-        getSongUrl(cid)
+        eHttp.onSearch(url)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "getMyName:", name:"NotificationIdentifier", object: nil)
         
     }
     
-    func getSongUrl(i:Int){
-        
-        var url = "https://www.douban.com/j/app/radio/people?app_name=radio_android&version=100&type=n&channel=\(i)"
-        print("\(i)")
-        
-        
-        eHttp.onSearch(url)
-        //print(data)
-    }
-
+   
     @IBAction func play(sender: AnyObject) {
         self.player.pause()
-        getSongUrl(cid)
+        eHttp.onSearch(url)
         playSong()
     }
 
     
     func playSong(){
+        
+        print(url)
         
         if data["song"] != nil{
         
@@ -127,21 +120,17 @@ class ViewController: UIViewController,ChannelProtocol,HttpProtocol {
     func getMyName(notification:NSNotification){
         
         //获取词典中的值
-        let name = notification.object as? String
+        let name = notification.object!
         
-        //通知的名称
-        let nameNotification = notification.name
         
         //notification.userInfo 接收object 对象 一些信息 例如入键盘的一些信息
         
         self.player.pause()
+        url = "https://www.douban.com/j/app/radio/people?app_name=radio_android&version=100&type=n&channel=\(notification.object!)"
         eHttp.onSearch(url)
+        playSong()
         
-        
-        print(nameNotification)
-        
-        print(name);
-    }
+            }
 
     
 }
