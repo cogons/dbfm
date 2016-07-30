@@ -37,8 +37,8 @@ class ChannelController: UITableViewController,HttpProtocol {
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         var vc = ViewController()
         self.channelDelegate = vc
+        channelid = (self.channelData[indexPath.row]["channel_id"])!!.integerValue
         //self.channelDelegate?.send(indexPath.row)
-        channelid = indexPath.row
         performSegueWithIdentifier("toRoot", sender: self)
         
         
@@ -77,6 +77,7 @@ class ChannelController: UITableViewController,HttpProtocol {
         
        
         cell.textLabel?.text = self.channelData[indexPath.row]["name"] as! String
+        
         //cell.textLabel?.text = self.channelData[indexPath.row]["name"]!!.string
         // Configure the cell...
 
